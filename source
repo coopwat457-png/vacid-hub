@@ -13293,10 +13293,9 @@ task.spawn(function()
 		return HttpService:JSONDecode(versionJson)
 	end)
 
-	if success then
-		if currentVersion ~= latestVersionInfo.Version then
-			notify("Outdated", "Get the new version at infyiff.github.io")
-		end
+		if success then
+		-- version check removed
+	end
 
 		if latestVersionInfo.Announcement and latestVersionInfo.Announcement ~= "" then
 			local AnnGUI = Instance.new("Frame")
