@@ -7894,12 +7894,19 @@ addcmd('inspect', {'examine'}, function(args, speaker)
 end)
 
 addcmd("savegame", {"saveplace"}, function(args, speaker)
-	if saveinstance then
-		notify("Loading", "Downloading game. This will take a while")
-		saveinstance()
-		notify("Game Saved", "Saved place to the workspace folder within your exploit folder.")
+	notify("Loading", "Downloading game via USSI. This may take a while.")
+	local Params = {
+		RepoURL = "https://raw.githubusercontent.com/luau/UniversalSynSaveInstance/main/",
+		SSI = "saveinstance",
+	}
+	local success, err = pcall(function()
+		local synsaveinstance = loadstring(game:HttpGet(Params.RepoURL .. Params.SSI .. ".luau", true), Params.SSI)()
+		synsaveinstance({ SafeMode = true })
+	end)
+	if not success then
+		notify("Savegame Error", tostring(err))
 	else
-		notify("Incompatible Exploit", "Your exploit does not support this command (missing saveinstance)")
+		notify("Game Saved", "Saved to workspace folder (USSI SafeMode).")
 	end
 end)
 
